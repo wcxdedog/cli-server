@@ -23,7 +23,7 @@ class CloudBuildTask {
     this._keepCache = keepCache;
     this._cnpm = cnpm;
     this._buildCmd = buildCmd;
-    this._dir = path.resolve(userHome, '.imooc-cli', 'cloudbuild', `${this._name}@${this._version}`);
+    this._dir = path.resolve(userHome, '.sdw-cli', 'cloudbuild', `${this._name}@${this._version}`);
     this._sourceCodeDir = path.resolve(this._dir, this._name);
     this.log('this._dir', this._dir);
     this.log('this._sourceCodeDir', this._sourceCodeDir);
@@ -60,8 +60,8 @@ class CloudBuildTask {
     if (this.isCnpm()) {
       res && (res = await this.execCommand('cnpm install'));
     } else {
-      res && (res = await this.execCommand('npm install --only=prod --registry=https://registry.npm.taobao.org'));
-      res && (res = await this.execCommand('npm install --only=dev --registry=https://registry.npm.taobao.org'));
+      res && (res = await this.execCommand('npm install'));
+      res && (res = await this.execCommand('npm install'));
     }
     return res;
   }
@@ -78,6 +78,7 @@ class CloudBuildTask {
 
   async prePublish() {
     const buildPath = this.findBuildPath();
+    this.log('buildPath', buildPath);
     if (!buildPath) {
       return this.failed('未找到构建路径，请检查');
     }

@@ -3,6 +3,7 @@
 const Controller = require('egg').Controller;
 const CloudBuildTask = require('../../models/CloudBuildTask');
 const PREFIX = 'cloudbuild';
+const config = require('../../../config/db.js');
 
 async function createCloudBuildTask(ctx, app) {
   const { socket, helper } = ctx;
@@ -136,7 +137,7 @@ class NspController extends Controller {
       await publish(cloudBuildTask, socket, helper);
       await cloudBuildTask.clean();
       socket.emit('build', helper.parseMsg('build success', {
-        message: `云构建成功，访问链接：https://${cloudBuildTask.isProd() ? 'imooc' : 'imooc-dev'}.youbaobao.xyz/${cloudBuildTask._name}/index.html`,
+        message: `云构建成功，访问链接：https://${cloudBuildTask.isProd() ? 'prod' : 'dev'}.${config.DO_MAIN}/${cloudBuildTask._name}/index.html`,
       }));
       socket.disconnect();
     } catch (error) {
