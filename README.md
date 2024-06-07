@@ -1,9 +1,9 @@
-# imooc-cli 服务端
+# sdw-cli 服务端
 
 
 ## QuickStart
 
-imooc-cli 脚手架配套服务端
+sdw-cli 脚手架配套服务端
 
 ### 开发
 
